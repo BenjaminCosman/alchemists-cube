@@ -3,6 +3,7 @@ var height = width
 draw = SVG('cube')
 draw.size(width*4, height*3)
 
+// The six faces, arranged in a cube net
 drawFace(120, '+', 0, 1, 90)
 drawFace(0,   '+', 1, 1, 0)
 drawFace(120, '-', 2, 1, 270)
@@ -31,20 +32,24 @@ function drawFace(hue, signText, x, y, rot) {
 
   m(draw.rect(width, height).fill(gradient))
 
+  // Draw 4 on-color edges
   m(c(draw.line(0, 0, width, height).stroke({width: 10, color: thisFace})))
   m(c(draw.line(0, 0, width, 0).stroke({width: 10, color: thisFace})))
   m(c(draw.line(0, height, width, height).stroke({width: 10, color: thisFace})))
   m(c(draw.line(0, height, width, 0).stroke({width: 10, color: thisFace})))
 
+  // Draw 2 off-color edges
   m(c(draw.line(0, 0, 0, height).stroke({width: 10, color: otherFace})))
   m(c(draw.line(width, 0, width, height).stroke({width: 10, color: otherFace})))
 
+  // Draw quarter-circle at each corner
   diameter = width/2
   m(c(draw.circle(diameter).center(0, 0).fill(gold)))
   m(c(draw.circle(diameter).center(width, 0).fill(silver)))
   m(c(draw.circle(diameter).center(0, height).fill(silver)))
   m(c(draw.circle(diameter).center(width, height).fill(gold)))
 
+  // Draw + or - on each corner
   margin = width/10
   fontSize = width/10
   m(draw.text(signText).font({size: fontSize}).center(0+margin, 0+margin))
